@@ -1,0 +1,22 @@
+{
+
+"images": [
+    "brokenTarget.png"
+],
+
+"frames": [
+    [1, 1, 120, 120, 0, 0, 0],
+    [123, 1, 120, 120, 0, 0, 0]
+],
+
+"animations": {
+    "target 2": { "frames": [0] },
+    "target 3": { "frames": [1] }
+},
+
+"texturepacker": [
+        "SmartUpdateHash: $TexturePacker:SmartUpdate:17278d714bba56b764ad2c6e5c212846:cbdcd48e1ffef5698fb926c9bf714e97:970d575b3b180d738e4e9e5103f8c17c$",
+        "Created with TexturePacker (https://www.codeandweb.com/texturepacker) for EaselJS"
+]
+
+}
