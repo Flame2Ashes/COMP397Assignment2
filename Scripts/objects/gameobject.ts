@@ -61,17 +61,28 @@ module objects {
             return new objects.Vector2(this.x - this.width * 0.5, this.y + this.height * 0.5);
         }
 
-        constructor(imageString : string, deathAnimString) {
-            super(shipAtlas, imageString);
+       constructor(animation : createjs.SpriteSheet, objectName:string, singleImageString:string=null,w:number =0, h:number=0) {
+            if(animation != null)
+                super(animation,"idle");
+            else{
+                 let newData = {
+                    "images": [assets.getResult(singleImageString)],
+                    "frames": {width:w, height:h},
+                    "animations": {                        
+                        "idle": {"frames": [0]}
+                    }
+                }
+                var temp_anim = new createjs.SpriteSheet(newData);
 
-            this._deathAnim = deathAnimString;
-
-            this._initialize(imageString);
+                super(temp_anim,"idle");
+            }                
+            //this._deathAnim = deathAnimString;
+            this.name = objectName;
+            this._initialize();
             this.start();
         }
 
-        private _initialize(imageString:string):void {
-            this.name = imageString;
+        private _initialize():void {
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
             this.regX = this.width / 2;
@@ -84,14 +95,17 @@ module objects {
             this.x = this.position.x;
             this.y = this.position.y;
 
-            if(this.currentAnimationFrame == shipAtlas.getNumFrames("explode") - 1) {
-                currentScene.removeChild(this);
-            }
+           
         }
 
         public destroy() : void {
-            this.gotoAndPlay(this._deathAnim);
-            // currentScene.removeChild(this);
+            if (this.name == "target") {
+                score += 100;
+            }
+            else if (this.name == "bottle") {
+                score += 500;
+            }
+            currentScene.removeChild(this);
         }
     }
 }

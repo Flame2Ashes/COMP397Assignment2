@@ -13,6 +13,7 @@ module scenes {
         // PRIVATE VARIABLES
       
         private _gamebg : createjs.Bitmap; //The background
+        private _target : objects.Target;
 
         constructor() {
             super();
@@ -26,6 +27,9 @@ module scenes {
             //Add background
             this._gamebg = new createjs.Bitmap(assets.getResult("Game_BG"));
             this.addChild(this._gamebg);
+
+            this._target = new objects.Target("target");
+            this.addChild(this._target);
        
             // Add gamescene to main stage container. 
             stage.addChild(this);

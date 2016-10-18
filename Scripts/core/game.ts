@@ -9,6 +9,13 @@ var assets: createjs.LoadQueue;
 var canvas: HTMLElement;
 var stage: createjs.Stage;
 
+//Spritesheet Variables
+var spriteSheetLoader : createjs.SpriteSheetLoader;
+var brokenBottle_anim : createjs.SpriteSheet;
+var brokenTarget_anim : createjs.SpriteSheet;
+
+var score : number = 0;
+
 var currentScene : objects.Scene;
 var scene: number;
 
@@ -97,6 +104,9 @@ function init() {
         "Created with TexturePacker (https://www.codeandweb.com/texturepacker) for EaselJS"
 ]
     }
+
+    brokenBottle_anim = new createjs.SpriteSheet(bottleData);
+    brokenTarget_anim = new createjs.SpriteSheet(targetData);
 }
 
 function gameLoop(event: createjs.Event): void {

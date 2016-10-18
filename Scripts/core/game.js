@@ -6,6 +6,11 @@
 var assets;
 var canvas;
 var stage;
+//Spritesheet Variables
+var spriteSheetLoader;
+var brokenBottle_anim;
+var brokenTarget_anim;
+var score = 0;
 var currentScene;
 var scene;
 // Game scenes
@@ -76,6 +81,8 @@ function init() {
             "Created with TexturePacker (https://www.codeandweb.com/texturepacker) for EaselJS"
         ]
     };
+    brokenBottle_anim = new createjs.SpriteSheet(bottleData);
+    brokenTarget_anim = new createjs.SpriteSheet(targetData);
 }
 function gameLoop(event) {
     // Update whatever scene is currently active.
