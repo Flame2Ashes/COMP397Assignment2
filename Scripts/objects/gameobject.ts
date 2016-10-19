@@ -61,51 +61,30 @@ module objects {
             return new objects.Vector2(this.x - this.width * 0.5, this.y + this.height * 0.5);
         }
 
-       constructor(animation : createjs.SpriteSheet, objectName:string, singleImageString:string=null,w:number =0, h:number=0) {
-            if(animation != null)
-                super(animation,"idle");
-            else{
-                 let newData = {
-                    "images": [assets.getResult(singleImageString)],
-                    "frames": {width:w, height:h},
-                    "animations": {                        
-                        "idle": {"frames": [0]}
-                    }
-                }
-                var temp_anim = new createjs.SpriteSheet(newData);
-
-                super(temp_anim,"idle");
-            }                
-            //this._deathAnim = deathAnimString;
-            this.name = objectName;
-            this._initialize();
+       constructor(atlas: createjs.SpriteSheet, imageString : string, deathAnimString) {
+            super(targetAtlas, imageString);
+            this._initialize(imageString);
+            this._deathAnim = deathAnimString;
             this.start();
         }
 
-        private _initialize():void {
+        private _initialize(imageString:string):void {
+            this.name = imageString;
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
-            this.regX = this.width / 2;
-            this.regY = this.height / 2;
+            this.regX = this.width * 0.5;
+            this.regY = this.height * 0.5;
             this.position = new Vector2(this.x, this.y);
         }
 
         public start():void {}
         public update():void {
-            this.x = this.position.x;
-            this.y = this.position.y;
-
            
         }
 
         public destroy() : void {
-            if (this.name == "target") {
-                score += 100;
-            }
-            else if (this.name == "bottle") {
-                score += 500;
-            }
-            currentScene.removeChild(this);
+            this.gotoAndPlay(this._deathAnim);
+            // currentScene.removeChild(this);
         }
     }
 }

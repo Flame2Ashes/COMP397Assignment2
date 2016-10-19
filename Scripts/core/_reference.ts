@@ -12,3 +12,4 @@
 
 /// <reference path="../scenes/menu.ts" />
 /// <reference path="../scenes/game.ts" />
+/// <reference path="../scenes/instructions.ts" />

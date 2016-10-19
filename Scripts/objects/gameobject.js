@@ -7,26 +7,10 @@ var objects;
 (function (objects) {
     var GameObject = (function (_super) {
         __extends(GameObject, _super);
-        function GameObject(animation, objectName, singleImageString, w, h) {
-            if (singleImageString === void 0) { singleImageString = null; }
-            if (w === void 0) { w = 0; }
-            if (h === void 0) { h = 0; }
-            if (animation != null)
-                _super.call(this, animation, "idle");
-            else {
-                var newData = {
-                    "images": [assets.getResult(singleImageString)],
-                    "frames": { width: w, height: h },
-                    "animations": {
-                        "idle": { "frames": [0] }
-                    }
-                };
-                var temp_anim = new createjs.SpriteSheet(newData);
-                _super.call(this, temp_anim, "idle");
-            }
-            //this._deathAnim = deathAnimString;
-            this.name = objectName;
-            this._initialize();
+        function GameObject(atlas, imageString, deathAnimString) {
+            _super.call(this, targetAtlas, imageString);
+            this._initialize(imageString);
+            this._deathAnim = deathAnimString;
             this.start();
         }
         Object.defineProperty(GameObject.prototype, "width", {
@@ -98,26 +82,20 @@ var objects;
             enumerable: true,
             configurable: true
         });
-        GameObject.prototype._initialize = function () {
+        GameObject.prototype._initialize = function (imageString) {
+            this.name = imageString;
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
-            this.regX = this.width / 2;
-            this.regY = this.height / 2;
+            this.regX = this.width * 0.5;
+            this.regY = this.height * 0.5;
             this.position = new objects.Vector2(this.x, this.y);
         };
         GameObject.prototype.start = function () { };
         GameObject.prototype.update = function () {
-            this.x = this.position.x;
-            this.y = this.position.y;
         };
         GameObject.prototype.destroy = function () {
-            if (this.name == "target") {
-                score += 100;
-            }
-            else if (this.name == "bottle") {
-                score += 500;
-            }
-            currentScene.removeChild(this);
+            this.gotoAndPlay(this._deathAnim);
+            // currentScene.removeChild(this);
         };
         return GameObject;
     })(createjs.Sprite);

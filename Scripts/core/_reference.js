@@ -8,5 +8,6 @@
 /// <reference path="../objects/gameobject.ts" />
 /// <reference path="../objects/vector2.ts" />
 /// <reference path="../scenes/menu.ts" />
-/// <reference path="../scenes/game.ts" /> 
+/// <reference path="../scenes/game.ts" />
+/// <reference path="../scenes/instructions.ts" /> 
 //# sourceMappingURL=_reference.js.map

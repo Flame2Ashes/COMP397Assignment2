@@ -13,9 +13,8 @@ module scenes {
         // Private instance variables
         // Label or bitmap
         // Button 
-        private _menuButton : objects.Button;
-        private _menuButtonGameOver : objects.Button;
-        private _menuLabel : objects.Label;
+        private _gameButton : objects.Button;
+        private _instructionButton : objects. Button;
         private _menuBG : createjs.Bitmap;
 
         // Menu Class Contructor
@@ -28,17 +27,20 @@ module scenes {
             console.log("Menu Scene Started");
 
             //Add the background
-            this._menuBG = new createjs.Bitmap(assets.getResult("MenuScreen"));
+            this._menuBG = new createjs.Bitmap(assets.getResult("Menu_BG"));
             this._menuBG.alpha = 0.5;
             this.addChild(this._menuBG);
 
-            this._menuLabel = new objects.Label("THE CAVE", "100px Arial", "#000000", config.Screen.CENTER_X, config.Screen.CENTER_Y);
-            this.addChild(this._menuLabel);
-
             // Add button to scene. Register for click callback function
-            this._menuButton = new objects.Button("Start", config.Screen.CENTER_X, config.Screen.CENTER_Y + 180);
-            this.addChild(this._menuButton);
-            this._menuButton.on("click", this._startButtonClick, this);
+            //Start button
+            this._gameButton = new objects.Button("start", config.Screen.CENTER_X / 2, config.Screen.CENTER_Y + 180);
+            this.addChild(this._gameButton);
+            this._gameButton.on("click", this._startButtonClick, this);
+
+            //Instructions button
+            this._instructionButton = new objects.Button("Instructions", config.Screen.CENTER_X + 200, config.Screen.CENTER_Y + 180);
+            this.addChild(this._instructionButton);
+            this._instructionButton.on("click", this._instructionButtonClick, this);
 
             // Add menu scene to global stage container
             stage.addChild(this);
@@ -52,6 +54,11 @@ module scenes {
         private _startButtonClick(event : createjs.MouseEvent) {
             // Change global scene variable to GAME. Call global changeScene() function
             scene = config.Scene.GAME;
+            changeScene();
+        }
+
+        private _instructionButtonClick (event : createjs.MouseEvent) {
+            scene = config.Scene.INSTRUCTIONS;
             changeScene();
         }
     }

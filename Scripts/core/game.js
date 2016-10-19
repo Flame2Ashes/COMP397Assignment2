@@ -8,8 +8,7 @@ var canvas;
 var stage;
 //Spritesheet Variables
 var spriteSheetLoader;
-var brokenBottle_anim;
-var brokenTarget_anim;
+var targetAtlas;
 var score = 0;
 var currentScene;
 var scene;
@@ -18,11 +17,12 @@ var menuScene;
 var gameScene;
 // Preload Assets required
 var assetData = [
+    //Assets
     { id: "Game_BG", src: "../../Assets/images/gamebg.png" },
-    { id: "bottle", src: "../../Assets/images/bottle.png" },
-    { id: "target", src: "../../Assets/images/target.png" },
-    { id: "brokenBottle", src: "../../Assets/images/brokenBottle.png" },
-    { id: "brokenTarget", src: "../../Assets/images/brokenTarget.png" }
+    { id: "Menu_BG", src: "../../Assets/images/menubg.png" },
+    { id: "start", src: "../../Assets/images/start.png" },
+    { id: "instructions", src: "../Assets/images/instructions.png" },
+    { id: "targetAtlas", src: "../../Assets/images/targetAtlas.png" }
 ];
 function preload() {
     // Create a queue for assets being loaded
@@ -42,47 +42,41 @@ function init() {
     // Set FPS for game and register for "tick" callback function
     createjs.Ticker.setFPS(config.Game.FPS);
     createjs.Ticker.on("tick", this.gameLoop, this);
-    // Set initial scene to MENU scene and call changeScene().
-    scene = config.Scene.MENU;
-    changeScene();
-    var bottleData = {
+    //Create AtlasData
+    var atlasData = {
         "images": [
-            assets.getResult("brokenBottle")
+            assets.getResult("targetAtlas")
         ],
         "frames": [
             [1, 1, 58, 135, 0, 0, 0],
-            [61, 1, 42, 120, 0, 0, 0]
+            [1, 138, 95, 112, 0, 0, 0],
+            [61, 1, 120, 120, 0, 0, 0],
+            [98, 123, 120, 120, 0, 0, 0],
+            [183, 1, 120, 120, 0, 0, 0],
+            [220, 123, 42, 120, 0, 0, 0],
+            [264, 123, 42, 120, 0, 0, 0]
         ],
         "animations": {
-            "brokenBottles": {
-                "frames": [0, 1], "speed": 0.1, next: false
+            "targetBreak": {
+                "frames": [2, 3], "speed": 0.1, next: false
             },
+            "bottleBreak": {
+                "frames": [5, 0], "speed": 0.1, next: false
+            },
+            "target": { "frames": [4] },
+            "bottle": { "frames": [6] },
+            "ammo": { "frames": [1] }
         },
         "texturepacker": [
-            "SmartUpdateHash: $TexturePacker:SmartUpdate:115dcfacce1f2cbce5d41c27d893b0de:2d5372700921ab1d1d995688762b8a0d:b40ecb7c03d838604c9408690bdd0dae$",
+            "SmartUpdateHash: $TexturePacker:SmartUpdate:b31f27273ee20ff5fbea1409d2a66696:99d5e8aadb7c7f1eaec0dfc2bb9cd0b3:01b4a05c7f6807936f8426c41592daed$",
             "Created with TexturePacker (https://www.codeandweb.com/texturepacker) for EaselJS"
         ]
     };
-    var targetData = {
-        "images": [
-            assets.getResult("brokenTarget")
-        ],
-        "frames": [
-            [1, 1, 120, 120, 0, 0, 0],
-            [123, 1, 120, 120, 0, 0, 0]
-        ],
-        "animations": {
-            "brokenTargets": {
-                "frames": [0, 1], "speed": 0.1, next: false
-            },
-        },
-        "texturepacker": [
-            "SmartUpdateHash: $TexturePacker:SmartUpdate:17278d714bba56b764ad2c6e5c212846:cbdcd48e1ffef5698fb926c9bf714e97:970d575b3b180d738e4e9e5103f8c17c$",
-            "Created with TexturePacker (https://www.codeandweb.com/texturepacker) for EaselJS"
-        ]
-    };
-    brokenBottle_anim = new createjs.SpriteSheet(bottleData);
-    brokenTarget_anim = new createjs.SpriteSheet(targetData);
+    //Assign to targetAtlas
+    targetAtlas = new createjs.SpriteSheet(atlasData);
+    // Set initial scene to MENU scene and call changeScene().
+    scene = config.Scene.MENU;
+    changeScene();
 }
 function gameLoop(event) {
     // Update whatever scene is currently active.
@@ -103,6 +97,11 @@ function changeScene() {
             stage.removeAllChildren();
             currentScene = new scenes.Game();
             console.log("Starting GAME scene");
+            break;
+        case config.Scene.INSTRUCTIONS:
+            stage.removeAllChildren();
+            currentScene = new scenes.Instructions();
+            console.log("Starting INSTRUCTIONS scene");
             break;
     }
 }

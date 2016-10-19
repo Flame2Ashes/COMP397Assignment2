@@ -1,5 +1,5 @@
 module objects {
-    export class Target extends objects.GameObject {
+    export class Bottle extends objects.GameObject {
 
         private _move : objects.Vector2;
         private _speed : number;
@@ -13,13 +13,13 @@ module objects {
         public center:objects.Vector2;
 
         constructor(imageString : string) {
-            super(targetAtlas, imageString, "target");
+            super(targetAtlas, imageString, "bottle");
 
-            this.name = "target";
+            this.name = "bottle";
             this.position = new objects.Vector2(config.Screen.WIDTH, config.Screen.CENTER_Y);
             this.regX = this.getBounds().width * 0.5;
             this.regY = this.getBounds().height * 0.5;
-            this._speed = 5;
+            this._speed = 9;
             this.on("click", this._onButtonClick, this);
 
         }
@@ -41,7 +41,7 @@ module objects {
 
         private _onButtonClick(event : createjs.MouseEvent) {
             this.destroy();
-            this._scoreValue += 100;
+            this._scoreValue += 500;
         }
     }
 }
