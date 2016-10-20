@@ -2,7 +2,6 @@ module objects {
     export class Ammo extends objects.GameObject {
         private _move : objects.Vector2;
         private _speed : number;
-        private _ammo: number = 5;
 
           // public variables
         public name:string;
@@ -11,19 +10,20 @@ module objects {
         public center:objects.Vector2;
 
         constructor (imageString : string) {
-            super (imageString, null);
+            super (imageString, "ammoGet");
            this.name = "ammo";
-            this.position = new objects.Vector2(config.Screen.WIDTH, config.Screen.CENTER_Y);
+            this.position = new objects.Vector2(config.Screen.WIDTH + 120, Math.floor((Math.random() * config.Screen.CENTER_Y)) + 60);
             this.regX = this.getBounds().width * 0.5;
             this.regY = this.getBounds().height * 0.5;
-            this._speed = 3;
+            this._speed = 5;
             this.on("click", this._reload, this);
 
         }
 
            public update() : void {
             super.update();
-            this.position.x += this._speed;
+            this.position.x -= this._speed;
+            
         }
 
           public setPosition(pos : objects.Vector2) : void {
@@ -37,7 +37,6 @@ module objects {
 
         private _reload() : void {
             this.destroy();
-            this._ammo += 5;
         }
 
     }

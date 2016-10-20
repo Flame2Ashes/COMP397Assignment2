@@ -8,18 +8,17 @@ var objects;
     var Ammo = (function (_super) {
         __extends(Ammo, _super);
         function Ammo(imageString) {
-            _super.call(this, imageString, null);
-            this._ammo = 5;
+            _super.call(this, imageString, "ammoGet");
             this.name = "ammo";
-            this.position = new objects.Vector2(config.Screen.WIDTH, config.Screen.CENTER_Y);
+            this.position = new objects.Vector2(config.Screen.WIDTH + 120, Math.floor((Math.random() * config.Screen.CENTER_Y)) + 60);
             this.regX = this.getBounds().width * 0.5;
             this.regY = this.getBounds().height * 0.5;
-            this._speed = 3;
+            this._speed = 5;
             this.on("click", this._reload, this);
         }
         Ammo.prototype.update = function () {
             _super.prototype.update.call(this);
-            this.position.x += this._speed;
+            this.position.x -= this._speed;
         };
         Ammo.prototype.setPosition = function (pos) {
             this.x = pos.x;
@@ -30,7 +29,6 @@ var objects;
         };
         Ammo.prototype._reload = function () {
             this.destroy();
-            this._ammo += 5;
         };
         return Ammo;
     })(objects.GameObject);

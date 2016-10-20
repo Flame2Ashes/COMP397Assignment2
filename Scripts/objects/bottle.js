@@ -10,16 +10,16 @@ var objects;
         function Bottle(imageString) {
             _super.call(this, imageString, "bottleBreak");
             this.name = "bottle";
-            this.position = new objects.Vector2(config.Screen.WIDTH, config.Screen.CENTER_Y);
+            this.position = new objects.Vector2(-120, Math.floor((Math.random() * config.Screen.CENTER_Y)) + 60);
             this.regX = this.getBounds().width * 0.5;
             this.regY = this.getBounds().height * 0.5;
-            this._speed = 9;
+            this._speed = 5;
             this.on("click", this._onButtonClick, this);
         }
         Bottle.prototype.update = function () {
             _super.prototype.update.call(this);
-            this.position.x -= this._speed;
-            if (this.position.x <= -120) {
+            this.position.x += this._speed;
+            if (this.position.x >= config.Screen.WIDTH + 120) {
                 currentScene.removeChild(this);
             }
         };
@@ -32,7 +32,6 @@ var objects;
         };
         Bottle.prototype._onButtonClick = function (event) {
             this.destroy();
-            this._scoreValue += 500;
         };
         return Bottle;
     })(objects.GameObject);

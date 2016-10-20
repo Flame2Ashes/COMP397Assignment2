@@ -94,7 +94,7 @@ var objects;
         GameObject.prototype.update = function () {
             this.x = this.position.x;
             this.y = this.position.y;
-            if (this.currentAnimationFrame == targetAtlas.getNumFrames("bottleBreak") - 1 || this.currentAnimationFrame == targetAtlas.getNumFrames("targetBreak") - 1) {
+            if ((this.name == "bottle" && this.currentAnimationFrame == targetAtlas.getNumFrames("bottleBreak") - 1) || (this.name == "target" && this.currentAnimationFrame == targetAtlas.getNumFrames("targetBreak") - 1) || (this.name == "ammo" && this.currentAnimationFrame == targetAtlas.getNumFrames("ammoGet") - 1)) {
                 currentScene.removeChild(this);
             }
         };

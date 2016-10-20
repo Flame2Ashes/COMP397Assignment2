@@ -4,8 +4,7 @@
 */
 //Source file: game.ts
 //Author name: Angelina Gutierrez
-//Last modified: October 3rd 2016
-//Intro scene
+//Last modified: October 19th 2016
 
 module scenes {
     export class Game extends objects.Scene {
@@ -14,9 +13,15 @@ module scenes {
       
         private _gamebg : createjs.Bitmap; //The background
         private _target : objects.Target;
+        private _targets : objects.Target[];
         private _bottle : objects.Bottle;
+        private _bottles : objects.Bottle[];
         private _ammo : objects.Ammo;
-        private _timer : number = 0;
+        private _ammos : objects.Ammo[];
+        private _targetTimer : number = 0;
+        private _bottleTimer : number = 0;
+        private _ammoTimer : number = 0;
+        private _ammoCount : number = 11;
 
         constructor() {
             super();
@@ -31,36 +36,85 @@ module scenes {
             this._gamebg = new createjs.Bitmap(assets.getResult("Game_BG"));
             this.addChild(this._gamebg);
 
-            this._target = new objects.Target("target");
-            this.addChild(this._target);
-            this._bottle = new objects.Bottle("bottle");
-            this._bottle.setPosition(new objects.Vector2(0, 0));
-            this.addChild(this._bottle);
+            //initialize arrays
+            this._targets = [];
+            this._bottles = [];
+            this._ammos = [];
+
+            
        
+        stage.on("click", this._click, this);
             // Add gamescene to main stage container. 
             stage.addChild(this);
         }
 
+            //Spawn a target
+        public spawnTarget() : void {
+            var _newTarget = new objects.Target("target");
+            _newTarget.setPosition( new objects.Vector2(config.Screen.WIDTH + 120, Math.floor((Math.random() * config.Screen.CENTER_Y)) + 60));
+            this.addChild(_newTarget);
+            this._targets.push(_newTarget);
+            this._targetTimer = 0;
+        }
+
+         public spawnBottle() : void {
+            var _newBottle = new objects.Bottle("bottle");
+            _newBottle.setPosition(new objects.Vector2(-120, Math.floor((Math.random() * config.Screen.CENTER_Y)) + 60));
+            this.addChild(_newBottle);
+            this._bottles.push(_newBottle);
+            this._bottleTimer = 0;
+        }
+
+        public spawnAmmo() : void {
+            var _newAmmo = new objects.Ammo("ammo");
+            this.addChild(_newAmmo);
+            this._ammos.push(_newAmmo);
+            this._ammoTimer = 0;
+        }
+
         public update() : void {
-        if (this._target != null) {
-            this._target.update()
+       
+            if (this._targets != null) {
+
+            this._targets.forEach (target => {
+            target.update()
+            });
+            }
+
+        
+        if (this._bottles != null) {
+            this._bottles.forEach (bottle => {
+                bottle.update();
+            });
         }
-        if (this._bottle != null) {
-            this._bottle.update();
+        if (this._ammos != null) {
+            this._ammos.forEach (ammo => {
+                ammo.update();
+            });
         }
-        if (this._ammo != null) {
-            this._ammo.update();
+
+        this._targetTimer += createjs.Ticker.interval;
+        this._bottleTimer += createjs.Ticker.interval;
+        this._ammoTimer += createjs.Ticker.interval;
+
+        if (this._targetTimer >= Math.random() * 200000) {
+            this.spawnTarget();
         }
+        if (this._bottleTimer >= Math.random() * 200000) {
+            this.spawnBottle();
+        }
+        if (this._ammoTimer >= Math.random() * 400000) {
+            this.spawnAmmo();
+        }
+
             // Update objects
         }
 
-        //Spawn a target
-        public spawnTarget() : void {
-            this._bottle.setPosition(new objects.Vector2(Math.random() * config.Screen.WIDTH, 0));
-            this.addChild(this._bottle);
-            this._timer = 0;
-        }
 
-      
+      private _click(event : createjs.MouseEvent) : void {
+          this._ammoCount--;
+          console.log("Clicks: " + this._ammoCount);
+      }
+    
     }
 }

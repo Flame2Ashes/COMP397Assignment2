@@ -48,33 +48,38 @@ function init() {
             assets.getResult("targetAtlas")
         ],
 
-        "frames": [
-            [1, 1, 58, 135, 0, 0, 0],
-            [1, 138, 95, 112, 0, 0, 0],
-            [61, 1, 120, 120, 0, 0, 0],
-            [98, 123, 120, 120, 0, 0, 0],
-            [183, 1, 120, 120, 0, 0, 0],
-            [220, 123, 42, 120, 0, 0, 0],
-            [264, 123, 42, 120, 0, 0, 0]
+      "frames": [
+        [1, 1, 120, 120, 0, 0, 0], //0 - Broken Target 1
+        [123, 1, 120, 120, 0, 0, 0], //1 - Broken Target 2
+        [1, 123, 58, 135, 0, 0, 0], //2 - Broken Bottle 2
+        [1, 260, 95, 112, 0, 0, 0], //3 - Ammo 2
+        [61, 123, 120, 120, 0, 0, 0], //4 - Target
+        [98, 245, 42, 120, 0, 0, 0], //5 - Broken Bottle 1
+        [142, 245, 95, 112, 0, 0, 0], //6 - Ammo
+        [183, 123, 42, 120, 0, 0, 0] //7 - Bottle
     ],
         "animations": {
             "targetBreak": {
-                "frames": [2, 3], "speed": 0.1, next: false
+                "frames": [0, 1], "speed": 0.1, next: false
             },
 
             "bottleBreak": {
-                "frames": [5, 0], "speed": 0.1, next: false
+                "frames": [5, 2], "speed": 0.1, next: false
+            },
+            "ammoGet": {
+                "frames": [6, 3], "speed": 0.1, next: false
             },
             
             "target": {"frames": [4]},
-            "bottle": {"frames": [6]},
-            "ammo": {"frames": [1]}
+            "bottle": {"frames": [7]},
+            "ammo": {"frames": [6]},
+            
         },
         
-        "texturepacker": [
-        "SmartUpdateHash: $TexturePacker:SmartUpdate:b31f27273ee20ff5fbea1409d2a66696:99d5e8aadb7c7f1eaec0dfc2bb9cd0b3:01b4a05c7f6807936f8426c41592daed$",
+       "texturepacker": [
+        "SmartUpdateHash: $TexturePacker:SmartUpdate:3cddc399832ebe0a9a1fd9e5fe9a0a96:836dbe4ba01c1cef370e7cac38a25ec5:01b4a05c7f6807936f8426c41592daed$",
         "Created with TexturePacker (https://www.codeandweb.com/texturepacker) for EaselJS"
-            ]
+]
     }
 
     //Assign to targetAtlas
