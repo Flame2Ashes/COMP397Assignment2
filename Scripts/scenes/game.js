@@ -17,6 +17,7 @@ var scenes;
         __extends(Game, _super);
         function Game() {
             _super.call(this);
+            this._timer = 0;
         }
         // PUBLIC FUNCTIONS
         Game.prototype.start = function () {
@@ -27,11 +28,29 @@ var scenes;
             this.addChild(this._gamebg);
             this._target = new objects.Target("target");
             this.addChild(this._target);
+            this._bottle = new objects.Bottle("bottle");
+            this._bottle.setPosition(new objects.Vector2(0, 0));
+            this.addChild(this._bottle);
             // Add gamescene to main stage container. 
             stage.addChild(this);
         };
         Game.prototype.update = function () {
+            if (this._target != null) {
+                this._target.update();
+            }
+            if (this._bottle != null) {
+                this._bottle.update();
+            }
+            if (this._ammo != null) {
+                this._ammo.update();
+            }
             // Update objects
+        };
+        //Spawn a target
+        Game.prototype.spawnTarget = function () {
+            this._bottle.setPosition(new objects.Vector2(Math.random() * config.Screen.WIDTH, 0));
+            this.addChild(this._bottle);
+            this._timer = 0;
         };
         return Game;
     })(objects.Scene);

@@ -7,10 +7,10 @@ var objects;
 (function (objects) {
     var GameObject = (function (_super) {
         __extends(GameObject, _super);
-        function GameObject(atlas, imageString, deathAnimString) {
+        function GameObject(imageString, deathAnimString) {
             _super.call(this, targetAtlas, imageString);
-            this._initialize(imageString);
             this._deathAnim = deathAnimString;
+            this._initialize(imageString);
             this.start();
         }
         Object.defineProperty(GameObject.prototype, "width", {
@@ -86,12 +86,17 @@ var objects;
             this.name = imageString;
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
-            this.regX = this.width * 0.5;
-            this.regY = this.height * 0.5;
+            this.regX = this.width / 2;
+            this.regY = this.height / 2;
             this.position = new objects.Vector2(this.x, this.y);
         };
         GameObject.prototype.start = function () { };
         GameObject.prototype.update = function () {
+            this.x = this.position.x;
+            this.y = this.position.y;
+            if (this.currentAnimationFrame == targetAtlas.getNumFrames("bottleBreak") - 1 || this.currentAnimationFrame == targetAtlas.getNumFrames("targetBreak") - 1) {
+                currentScene.removeChild(this);
+            }
         };
         GameObject.prototype.destroy = function () {
             this.gotoAndPlay(this._deathAnim);

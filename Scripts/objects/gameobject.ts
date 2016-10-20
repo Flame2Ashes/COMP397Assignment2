@@ -61,10 +61,12 @@ module objects {
             return new objects.Vector2(this.x - this.width * 0.5, this.y + this.height * 0.5);
         }
 
-       constructor(atlas: createjs.SpriteSheet, imageString : string, deathAnimString) {
+        constructor(imageString : string, deathAnimString) {
             super(targetAtlas, imageString);
-            this._initialize(imageString);
+
             this._deathAnim = deathAnimString;
+
+            this._initialize(imageString);
             this.start();
         }
 
@@ -72,14 +74,19 @@ module objects {
             this.name = imageString;
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
-            this.regX = this.width * 0.5;
-            this.regY = this.height * 0.5;
+            this.regX = this.width / 2;
+            this.regY = this.height / 2;
             this.position = new Vector2(this.x, this.y);
         }
 
         public start():void {}
         public update():void {
-           
+            this.x = this.position.x;
+            this.y = this.position.y;
+
+            if(this.currentAnimationFrame == targetAtlas.getNumFrames("bottleBreak") - 1 || this.currentAnimationFrame == targetAtlas.getNumFrames("targetBreak") - 1) {
+                currentScene.removeChild(this);
+            }
         }
 
         public destroy() : void {

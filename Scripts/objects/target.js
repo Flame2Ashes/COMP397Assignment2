@@ -8,7 +8,7 @@ var objects;
     var Target = (function (_super) {
         __extends(Target, _super);
         function Target(imageString) {
-            _super.call(this, targetAtlas, imageString, "target");
+            _super.call(this, imageString, "targetBreak");
             this.name = "target";
             this.position = new objects.Vector2(config.Screen.WIDTH, config.Screen.CENTER_Y);
             this.regX = this.getBounds().width * 0.5;
@@ -19,6 +19,9 @@ var objects;
         Target.prototype.update = function () {
             _super.prototype.update.call(this);
             this.position.x -= this._speed;
+            if (this.position.x <= -120) {
+                currentScene.removeChild(this);
+            }
         };
         Target.prototype.setPosition = function (pos) {
             this.x = pos.x;

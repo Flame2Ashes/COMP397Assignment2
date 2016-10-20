@@ -1,23 +1,14 @@
-//Source file: game.ts
-//Author name: Angelina Gutierrez
-//Last modified: October 16, 2016
 /// <reference path = "_reference.ts" />
 // Global Variables
 var assets;
 var canvas;
 var stage;
-//Spritesheet Variables
 var spriteSheetLoader;
 var targetAtlas;
-var score = 0;
 var currentScene;
 var scene;
-// Game scenes
-var menuScene;
-var gameScene;
 // Preload Assets required
 var assetData = [
-    //Assets
     { id: "Game_BG", src: "../../Assets/images/gamebg.png" },
     { id: "Menu_BG", src: "../../Assets/images/menubg.png" },
     { id: "start", src: "../../Assets/images/start.png" },
@@ -35,11 +26,8 @@ function preload() {
 function init() {
     // Reference to canvas element
     canvas = document.getElementById("canvas");
-    // Tie canvas element to createjs stage container
     stage = new createjs.Stage(canvas);
-    // Enable mouse events that are polled 20 times per tick
     stage.enableMouseOver(20);
-    // Set FPS for game and register for "tick" callback function
     createjs.Ticker.setFPS(config.Game.FPS);
     createjs.Ticker.on("tick", this.gameLoop, this);
     //Create AtlasData
@@ -74,13 +62,11 @@ function init() {
     };
     //Assign to targetAtlas
     targetAtlas = new createjs.SpriteSheet(atlasData);
-    // Set initial scene to MENU scene and call changeScene().
     scene = config.Scene.MENU;
     changeScene();
 }
 function gameLoop(event) {
     // Update whatever scene is currently active.
-    console.log("gameLoop update");
     currentScene.update();
     stage.update();
 }
@@ -89,8 +75,8 @@ function changeScene() {
     switch (scene) {
         case config.Scene.MENU:
             stage.removeAllChildren();
-            menuScene = new scenes.Menu();
-            currentScene = menuScene;
+            currentScene = new scenes.Menu();
+            ;
             console.log("Starting MENU scene");
             break;
         case config.Scene.GAME:

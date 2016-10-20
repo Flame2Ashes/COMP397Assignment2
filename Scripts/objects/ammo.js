@@ -8,7 +8,7 @@ var objects;
     var Ammo = (function (_super) {
         __extends(Ammo, _super);
         function Ammo(imageString) {
-            _super.call(this, targetAtlas, imageString, "ammo");
+            _super.call(this, imageString, null);
             this._ammo = 5;
             this.name = "ammo";
             this.position = new objects.Vector2(config.Screen.WIDTH, config.Screen.CENTER_Y);
@@ -19,7 +19,7 @@ var objects;
         }
         Ammo.prototype.update = function () {
             _super.prototype.update.call(this);
-            this.position.x -= this._speed;
+            this.position.x += this._speed;
         };
         Ammo.prototype.setPosition = function (pos) {
             this.x = pos.x;
