@@ -20,6 +20,7 @@ var scenes;
             this._bottleTimer = 0;
             this._ammoTimer = 0;
             this._ammoCount = 11;
+            this._score = 0;
         }
         // PUBLIC FUNCTIONS
         Game.prototype.start = function () {
@@ -40,6 +41,7 @@ var scenes;
         Game.prototype.spawnTarget = function () {
             var _newTarget = new objects.Target("target");
             _newTarget.setPosition(new objects.Vector2(config.Screen.WIDTH + 120, Math.floor((Math.random() * config.Screen.CENTER_Y)) + 60));
+            _newTarget.on("click", this._onTargetClick, this);
             this.addChild(_newTarget);
             this._targets.push(_newTarget);
             this._targetTimer = 0;
@@ -47,12 +49,15 @@ var scenes;
         Game.prototype.spawnBottle = function () {
             var _newBottle = new objects.Bottle("bottle");
             _newBottle.setPosition(new objects.Vector2(-120, Math.floor((Math.random() * config.Screen.CENTER_Y)) + 60));
+            _newBottle.on("click", this._onBottleClick, this);
             this.addChild(_newBottle);
             this._bottles.push(_newBottle);
             this._bottleTimer = 0;
         };
         Game.prototype.spawnAmmo = function () {
             var _newAmmo = new objects.Ammo("ammo");
+            _newAmmo.setPosition(new objects.Vector2(config.Screen.WIDTH + 120, Math.floor((Math.random() * config.Screen.CENTER_Y)) + 60));
+            _newAmmo.on("click", this._onAmmoClick, this);
             this.addChild(_newAmmo);
             this._ammos.push(_newAmmo);
             this._ammoTimer = 0;
@@ -89,6 +94,18 @@ var scenes;
         };
         Game.prototype._click = function (event) {
             this._ammoCount--;
+            console.log("Clicks: " + this._ammoCount);
+        };
+        Game.prototype._onTargetClick = function (event) {
+            this._score += 100;
+            console.log("Score: " + this._score);
+        };
+        Game.prototype._onBottleClick = function (event) {
+            this._score += 300;
+            console.log("Score: " + this._score);
+        };
+        Game.prototype._onAmmoClick = function (event) {
+            this._ammoCount += 10;
             console.log("Clicks: " + this._ammoCount);
         };
         return Game;

@@ -22,6 +22,7 @@ module scenes {
         private _bottleTimer : number = 0;
         private _ammoTimer : number = 0;
         private _ammoCount : number = 11;
+        private _score : number = 0;
 
         constructor() {
             super();
@@ -52,6 +53,7 @@ module scenes {
         public spawnTarget() : void {
             var _newTarget = new objects.Target("target");
             _newTarget.setPosition( new objects.Vector2(config.Screen.WIDTH + 120, Math.floor((Math.random() * config.Screen.CENTER_Y)) + 60));
+            _newTarget.on("click", this._onTargetClick, this);
             this.addChild(_newTarget);
             this._targets.push(_newTarget);
             this._targetTimer = 0;
@@ -60,6 +62,7 @@ module scenes {
          public spawnBottle() : void {
             var _newBottle = new objects.Bottle("bottle");
             _newBottle.setPosition(new objects.Vector2(-120, Math.floor((Math.random() * config.Screen.CENTER_Y)) + 60));
+             _newBottle.on("click", this._onBottleClick, this);
             this.addChild(_newBottle);
             this._bottles.push(_newBottle);
             this._bottleTimer = 0;
@@ -67,6 +70,8 @@ module scenes {
 
         public spawnAmmo() : void {
             var _newAmmo = new objects.Ammo("ammo");
+            _newAmmo.setPosition(new objects.Vector2(config.Screen.WIDTH + 120, Math.floor((Math.random() * config.Screen.CENTER_Y)) + 60));
+             _newAmmo.on("click", this._onAmmoClick, this);
             this.addChild(_newAmmo);
             this._ammos.push(_newAmmo);
             this._ammoTimer = 0;
@@ -116,5 +121,19 @@ module scenes {
           console.log("Clicks: " + this._ammoCount);
       }
     
+      private _onTargetClick(event : createjs.MouseEvent) : void {
+          this._score += 100;
+          console.log("Score: " + this._score);
+      }
+
+      private _onBottleClick(event : createjs.MouseEvent) : void {
+          this._score += 300;
+          console.log("Score: " + this._score);
+      }
+
+      private _onAmmoClick(event : createjs.MouseEvent) : void {
+          this._ammoCount += 10;
+          console.log("Clicks: " + this._ammoCount);
+      }
     }
 }
