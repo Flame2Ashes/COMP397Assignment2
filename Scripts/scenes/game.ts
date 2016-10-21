@@ -117,7 +117,7 @@ module scenes {
         if (this._bottleTimer >= Math.random() * 200000) {
             this.spawnBottle();
         }
-        if (this._ammoTimer >= Math.random() * 400000) {
+        if (this._ammoTimer >= Math.random() * 500000) {
             this.spawnAmmo();
         }       
         
@@ -146,7 +146,7 @@ module scenes {
       }
 
       private _onAmmoClick(event : createjs.MouseEvent) : void {
-          ammo += 5;
+          ammo += 6;
           this._ammoLabel.text ="Ammo: " + ammo;
       }
     }

@@ -16,7 +16,9 @@ var assetData = [
     { id: "start", src: "../../Assets/images/start.png" },
     { id: "instructions", src: "../Assets/images/instructions.png" },
     { id: "targetAtlas", src: "../../Assets/images/targetAtlas.png" },
-    { id: "playAgain", src: "../../Assets/images/playAgain.png" }
+    { id: "playAgain", src: "../../Assets/images/playAgain.png" },
+    { id: "back", src: "../../Assets/images/back.png" },
+    { id: "Instructions_BG", src: "../../Assets/images/instructionsbg.png" }
 ];
 function preload() {
     // Create a queue for assets being loaded

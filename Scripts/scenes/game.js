@@ -90,7 +90,7 @@ var scenes;
             if (this._bottleTimer >= Math.random() * 200000) {
                 this.spawnBottle();
             }
-            if (this._ammoTimer >= Math.random() * 400000) {
+            if (this._ammoTimer >= Math.random() * 500000) {
                 this.spawnAmmo();
             }
             // Update objects
@@ -113,7 +113,7 @@ var scenes;
             this._scoreLabel.text = "Score: " + score;
         };
         Game.prototype._onAmmoClick = function (event) {
-            ammo += 5;
+            ammo += 6;
             this._ammoLabel.text = "Ammo: " + ammo;
         };
         return Game;

@@ -8,8 +8,32 @@ var scenes;
     var Instructions = (function (_super) {
         __extends(Instructions, _super);
         function Instructions() {
-            _super.apply(this, arguments);
+            _super.call(this);
         }
+        Instructions.prototype.start = function () {
+            console.log("Instructions scene started");
+            //Add the background
+            this._instructionbg = new createjs.Bitmap(assets.getResult("Instructions_BG"));
+            this.addChild(this._instructionbg);
+            //Buttons
+            this._gameButton = new objects.Button("start", config.Screen.CENTER_X - 300, config.Screen.CENTER_Y + 175);
+            this.addChild(this._gameButton);
+            this._gameButton.on("click", this._startButtonClick, this);
+            this._menuButton = new objects.Button("back", config.Screen.CENTER_X + 250, config.Screen.CENTER_Y + 175);
+            this.addChild(this._menuButton);
+            this._menuButton.on("click", this._menuButtonClick, this);
+            stage.addChild(this);
+        };
+        Instructions.prototype._startButtonClick = function (event) {
+            // Change global scene variable to GAME. Call global changeScene() function
+            ammo = 11;
+            scene = config.Scene.GAME;
+            changeScene();
+        };
+        Instructions.prototype._menuButtonClick = function (event) {
+            scene = config.Scene.MENU;
+            changeScene();
+        };
         return Instructions;
     })(objects.Scene);
     scenes.Instructions = Instructions;

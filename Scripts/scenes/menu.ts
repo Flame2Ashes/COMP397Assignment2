@@ -33,7 +33,7 @@ module scenes {
 
             // Add button to scene. Register for click callback function
             //Start button
-            this._gameButton = new objects.Button("start", config.Screen.CENTER_X - 350, config.Screen.CENTER_Y + 100);
+            this._gameButton = new objects.Button("start", config.Screen.CENTER_X - 350, config.Screen.CENTER_Y + 125);
             this.addChild(this._gameButton);
             this._gameButton.on("click", this._startButtonClick, this);
 
