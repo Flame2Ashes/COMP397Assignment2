@@ -19,6 +19,7 @@ var objects;
         Target.prototype.update = function () {
             _super.prototype.update.call(this);
             this.position.x -= this._speed;
+            //Remove upon leaving view of screen
             if (this.position.x <= -120) {
                 currentScene.removeChild(this);
             }
@@ -32,7 +33,6 @@ var objects;
         };
         Target.prototype._onButtonClick = function (event) {
             this.destroy();
-            this._scoreValue += 100;
         };
         return Target;
     })(objects.GameObject);

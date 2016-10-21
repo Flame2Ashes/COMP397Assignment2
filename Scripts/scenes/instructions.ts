@@ -1,3 +1,8 @@
+//Instructions scene
+//Source file: instructions.ts
+//Author name: Angelina Gutierrez
+//Last modified: October 20th 2016
+
 module scenes {
     export class Instructions extends objects.Scene {
         
@@ -18,10 +23,12 @@ module scenes {
             this.addChild(this._instructionbg);
 
             //Buttons
-
+            //Start game
             this._gameButton = new objects.Button("start", config.Screen.CENTER_X - 300, config.Screen.CENTER_Y + 175);
             this.addChild(this._gameButton);
             this._gameButton.on("click", this._startButtonClick, this);
+            
+            //Back to menu
 
             this._menuButton = new objects.Button("back", config.Screen.CENTER_X + 250, config.Screen.CENTER_Y + 175);
             this.addChild(this._menuButton);
@@ -31,7 +38,6 @@ module scenes {
         }
 
             private _startButtonClick(event : createjs.MouseEvent) {
-            // Change global scene variable to GAME. Call global changeScene() function
             ammo = 11;
             scene = config.Scene.GAME;
             changeScene();

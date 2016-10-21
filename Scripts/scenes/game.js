@@ -4,7 +4,7 @@
 */
 //Source file: game.ts
 //Author name: Angelina Gutierrez
-//Last modified: October 19th 2016
+//Last modified: October 20th 2016
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -49,6 +49,7 @@ var scenes;
             this._targets.push(_newTarget);
             this._targetTimer = 0;
         };
+        //Spawn a bottle
         Game.prototype.spawnBottle = function () {
             var _newBottle = new objects.Bottle("bottle");
             _newBottle.setPosition(new objects.Vector2(-120, Math.floor((Math.random() * config.Screen.CENTER_Y)) + 60));
@@ -57,6 +58,7 @@ var scenes;
             this._bottles.push(_newBottle);
             this._bottleTimer = 0;
         };
+        //Spawn ammo
         Game.prototype.spawnAmmo = function () {
             var _newAmmo = new objects.Ammo("ammo");
             _newAmmo.setPosition(new objects.Vector2(config.Screen.WIDTH + 120, Math.floor((Math.random() * config.Screen.CENTER_Y)) + 60));
@@ -66,21 +68,25 @@ var scenes;
             this._ammoTimer = 0;
         };
         Game.prototype.update = function () {
+            //Update targets
             if (this._targets != null) {
                 this._targets.forEach(function (target) {
                     target.update();
                 });
             }
+            //Update bottles
             if (this._bottles != null) {
                 this._bottles.forEach(function (bottle) {
                     bottle.update();
                 });
             }
+            //Update ammo
             if (this._ammos != null) {
                 this._ammos.forEach(function (ammo) {
                     ammo.update();
                 });
             }
+            //Update tickers for object Spawn
             this._targetTimer += createjs.Ticker.interval;
             this._bottleTimer += createjs.Ticker.interval;
             this._ammoTimer += createjs.Ticker.interval;
@@ -93,8 +99,8 @@ var scenes;
             if (this._ammoTimer >= Math.random() * 500000) {
                 this.spawnAmmo();
             }
-            // Update objects
         };
+        //Click methods
         Game.prototype._click = function (event) {
             ammo -= 1;
             this._ammoLabel.text = "Ammo: " + ammo;

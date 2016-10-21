@@ -27,6 +27,7 @@ module objects {
         public update() : void {
             super.update();
             this.position.x -= this._speed;
+            //Remove upon leaving view of screen
             if (this.position.x <= -120) {
                 currentScene.removeChild(this);
             }
@@ -44,7 +45,6 @@ module objects {
 
         private _onButtonClick(event : createjs.MouseEvent) {
             this.destroy();
-            this._scoreValue += 100;
         }
     }
 }

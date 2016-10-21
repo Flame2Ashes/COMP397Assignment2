@@ -4,7 +4,7 @@
 */
 //Source file: game.ts
 //Author name: Angelina Gutierrez
-//Last modified: October 19th 2016
+//Last modified: October 20th 2016
 
 module scenes {
     export class Game extends objects.Scene {
@@ -58,7 +58,8 @@ module scenes {
             stage.addChild(this);
         }
 
-            //Spawn a target
+        //Spawn a target
+
         public spawnTarget() : void {
             var _newTarget = new objects.Target("target");
             _newTarget.setPosition( new objects.Vector2(config.Screen.WIDTH + 120, Math.floor((Math.random() * config.Screen.CENTER_Y)) + 60));
@@ -67,6 +68,8 @@ module scenes {
             this._targets.push(_newTarget);
             this._targetTimer = 0;
         }
+
+        //Spawn a bottle
 
          public spawnBottle() : void {
             var _newBottle = new objects.Bottle("bottle");
@@ -77,36 +80,43 @@ module scenes {
             this._bottleTimer = 0;
         }
 
+        //Spawn ammo
+
         public spawnAmmo() : void {
             var _newAmmo = new objects.Ammo("ammo");
             _newAmmo.setPosition(new objects.Vector2(config.Screen.WIDTH + 120, Math.floor((Math.random() * config.Screen.CENTER_Y)) + 60));
-             _newAmmo.on("click", this._onAmmoClick, this);
+            _newAmmo.on("click", this._onAmmoClick, this);
             this.addChild(_newAmmo);
             this._ammos.push(_newAmmo);
             this._ammoTimer = 0;
         }
 
         public update() : void {
-       
-            if (this._targets != null) {
+            //Update targets
 
+            if (this._targets != null) {
             this._targets.forEach (target => {
             target.update()
             });
-            }
+        }
 
-        
+            //Update bottles
+
         if (this._bottles != null) {
             this._bottles.forEach (bottle => {
                 bottle.update();
             });
         }
+            //Update ammo
+            
         if (this._ammos != null) {
             this._ammos.forEach (ammo => {
                 ammo.update();
             });
+
         }
 
+        //Update tickers for object Spawn
         this._targetTimer += createjs.Ticker.interval;
         this._bottleTimer += createjs.Ticker.interval;
         this._ammoTimer += createjs.Ticker.interval;
@@ -120,10 +130,10 @@ module scenes {
         if (this._ammoTimer >= Math.random() * 500000) {
             this.spawnAmmo();
         }       
-        
-            // Update objects
-        }
 
+    }
+
+    //Click methods
 
       private _click(event : createjs.MouseEvent) : void {
           ammo -= 1;
@@ -134,7 +144,8 @@ module scenes {
             changeScene();
         }
       }
-    
+
+
       private _onTargetClick(event : createjs.MouseEvent) : void {
           score += 100;
           this._scoreLabel.text = "Score: " + score;

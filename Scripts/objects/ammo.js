@@ -19,6 +19,7 @@ var objects;
         Ammo.prototype.update = function () {
             _super.prototype.update.call(this);
             this.position.x -= this._speed;
+            //Remove upon leaving view of screen
             if (this.position.x <= -120) {
                 currentScene.removeChild(this);
             }

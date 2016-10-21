@@ -35,12 +35,10 @@ module scenes {
 
             stage.addChild(this);
             
-
-
         }
 
          private _playAgainClick(event : createjs.MouseEvent) {
-            // Change global scene variable to GAME. Call global changeScene() function
+            //Reset score and send to menu
             score = 0;
             scene = config.Scene.MENU;
             changeScene();

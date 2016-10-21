@@ -1,5 +1,9 @@
 /// <reference path = "_reference.ts" />
 
+//Filename: game.ts CORE
+//Author: Angelina Gutierrez
+//Date modified: October 20th, 2016
+
 // Global Variables
 var assets: createjs.LoadQueue;
 var canvas: HTMLElement;
@@ -18,14 +22,17 @@ var ammo : number = 11;
 
 // Preload Assets required
 var assetData:objects.Asset[] = [
+    //Backgrounds
     {id: "Game_BG", src: "../../Assets/images/gamebg.png"},
     {id: "Menu_BG", src: "../../Assets/images/menubg.png"},
+    {id: "Instructions_BG", src: "../../Assets/images/instructionsbg.png"},
+    //Buttons
     {id: "start", src: "../../Assets/images/start.png"},
     {id: "instructions", src: "../Assets/images/instructions.png"},
-    {id: "targetAtlas", src: "../../Assets/images/targetAtlas.png"},
     {id: "playAgain", src: "../../Assets/images/playAgain.png"},
     {id: "back", src: "../../Assets/images/back.png"},
-    {id: "Instructions_BG", src: "../../Assets/images/instructionsbg.png"}
+    //Spritesheet
+    {id: "targetAtlas", src: "../../Assets/images/targetAtlas.png"}
 ];
 
 function preload() {

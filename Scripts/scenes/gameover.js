@@ -28,7 +28,7 @@ var scenes;
             stage.addChild(this);
         };
         Gameover.prototype._playAgainClick = function (event) {
-            // Change global scene variable to GAME. Call global changeScene() function
+            //Reset score and send to menu
             score = 0;
             scene = config.Scene.MENU;
             changeScene();
