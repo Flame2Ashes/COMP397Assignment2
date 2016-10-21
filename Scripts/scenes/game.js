@@ -19,8 +19,6 @@ var scenes;
             this._targetTimer = 0;
             this._bottleTimer = 0;
             this._ammoTimer = 0;
-            this._ammoCount = 11;
-            this._score = 0;
         }
         // PUBLIC FUNCTIONS
         Game.prototype.start = function () {
@@ -29,6 +27,11 @@ var scenes;
             //Add background
             this._gamebg = new createjs.Bitmap(assets.getResult("Game_BG"));
             this.addChild(this._gamebg);
+            //Labels
+            this._scoreLabel = new objects.Label("Score: " + score, "60px Arial", "#ffffff", config.Screen.CENTER_X - 250, config.Screen.CENTER_Y + 200);
+            this.addChild(this._scoreLabel);
+            this._ammoLabel = new objects.Label("Ammo: " + ammo, "60px Arial", "#ffffff", config.Screen.CENTER_X + 250, config.Screen.CENTER_Y + 200);
+            this.addChild(this._ammoLabel);
             //initialize arrays
             this._targets = [];
             this._bottles = [];
@@ -93,20 +96,25 @@ var scenes;
             // Update objects
         };
         Game.prototype._click = function (event) {
-            this._ammoCount--;
-            console.log("Clicks: " + this._ammoCount);
+            ammo -= 1;
+            this._ammoLabel.text = "Ammo: " + ammo;
+            if (ammo == 0) {
+                stage.removeAllEventListeners();
+                scene = config.Scene.GAMEOVER;
+                changeScene();
+            }
         };
         Game.prototype._onTargetClick = function (event) {
-            this._score += 100;
-            console.log("Score: " + this._score);
+            score += 100;
+            this._scoreLabel.text = "Score: " + score;
         };
         Game.prototype._onBottleClick = function (event) {
-            this._score += 300;
-            console.log("Score: " + this._score);
+            score += 500;
+            this._scoreLabel.text = "Score: " + score;
         };
         Game.prototype._onAmmoClick = function (event) {
-            this._ammoCount += 10;
-            console.log("Clicks: " + this._ammoCount);
+            ammo += 5;
+            this._ammoLabel.text = "Ammo: " + ammo;
         };
         return Game;
     })(objects.Scene);

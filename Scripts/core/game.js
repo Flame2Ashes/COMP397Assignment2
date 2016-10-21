@@ -7,13 +7,16 @@ var spriteSheetLoader;
 var targetAtlas;
 var currentScene;
 var scene;
+var score = 0;
+var ammo = 11;
 // Preload Assets required
 var assetData = [
     { id: "Game_BG", src: "../../Assets/images/gamebg.png" },
     { id: "Menu_BG", src: "../../Assets/images/menubg.png" },
     { id: "start", src: "../../Assets/images/start.png" },
     { id: "instructions", src: "../Assets/images/instructions.png" },
-    { id: "targetAtlas", src: "../../Assets/images/targetAtlas.png" }
+    { id: "targetAtlas", src: "../../Assets/images/targetAtlas.png" },
+    { id: "playAgain", src: "../../Assets/images/playAgain.png" }
 ];
 function preload() {
     // Create a queue for assets being loaded
@@ -92,6 +95,11 @@ function changeScene() {
             stage.removeAllChildren();
             currentScene = new scenes.Instructions();
             console.log("Starting INSTRUCTIONS scene");
+            break;
+        case config.Scene.GAMEOVER:
+            stage.removeAllChildren();
+            currentScene = new scenes.Gameover();
+            console.log("Starting GAMEOVER scene");
             break;
     }
 }

@@ -22,7 +22,7 @@ var scenes;
             console.log("Menu Scene Started");
             //Add the background
             this._menuBG = new createjs.Bitmap(assets.getResult("Menu_BG"));
-            this._menuBG.alpha = 0.5;
+            this._menuBG.alpha = 0.9;
             this.addChild(this._menuBG);
             // Add button to scene. Register for click callback function
             //Start button
@@ -30,7 +30,7 @@ var scenes;
             this.addChild(this._gameButton);
             this._gameButton.on("click", this._startButtonClick, this);
             //Instructions button
-            this._instructionButton = new objects.Button("Instructions", config.Screen.CENTER_X, config.Screen.CENTER_Y);
+            this._instructionButton = new objects.Button("instructions", config.Screen.CENTER_X + 250, config.Screen.CENTER_Y + 100);
             this.addChild(this._instructionButton);
             this._instructionButton.on("click", this._instructionButtonClick, this);
             // Add menu scene to global stage container
@@ -41,6 +41,7 @@ var scenes;
         // Fucntion for when button is pressed
         Menu.prototype._startButtonClick = function (event) {
             // Change global scene variable to GAME. Call global changeScene() function
+            ammo = 11;
             scene = config.Scene.GAME;
             changeScene();
         };

@@ -23,6 +23,10 @@ module objects {
            public update() : void {
             super.update();
             this.position.x -= this._speed;
+            if (this.position.x <= -120) {
+                currentScene.removeChild(this);
+                
+            }
             
         }
 

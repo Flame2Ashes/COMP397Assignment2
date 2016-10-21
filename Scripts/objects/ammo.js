@@ -19,6 +19,9 @@ var objects;
         Ammo.prototype.update = function () {
             _super.prototype.update.call(this);
             this.position.x -= this._speed;
+            if (this.position.x <= -120) {
+                currentScene.removeChild(this);
+            }
         };
         Ammo.prototype.setPosition = function (pos) {
             this.x = pos.x;

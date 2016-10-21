@@ -12,6 +12,9 @@ var targetAtlas : createjs.SpriteSheet;
 var currentScene : objects.Scene;
 var scene: number;
 
+var score : number = 0;
+var ammo : number = 11;
+
 
 // Preload Assets required
 var assetData:objects.Asset[] = [
@@ -19,7 +22,8 @@ var assetData:objects.Asset[] = [
     {id: "Menu_BG", src: "../../Assets/images/menubg.png"},
     {id: "start", src: "../../Assets/images/start.png"},
     {id: "instructions", src: "../Assets/images/instructions.png"},
-    {id: "targetAtlas", src: "../../Assets/images/targetAtlas.png"}
+    {id: "targetAtlas", src: "../../Assets/images/targetAtlas.png"},
+    {id: "playAgain", src: "../../Assets/images/playAgain.png"}
 ];
 
 function preload() {
@@ -116,6 +120,12 @@ function changeScene() : void {
             stage.removeAllChildren();
             currentScene = new scenes.Instructions();
             console.log("Starting INSTRUCTIONS scene");
+            break;
+
+        case config.Scene.GAMEOVER :
+            stage.removeAllChildren();
+            currentScene = new scenes.Gameover();
+            console.log("Starting GAMEOVER scene");
             break;
     }
     

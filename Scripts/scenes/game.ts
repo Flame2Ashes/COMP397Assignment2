@@ -21,8 +21,8 @@ module scenes {
         private _targetTimer : number = 0;
         private _bottleTimer : number = 0;
         private _ammoTimer : number = 0;
-        private _ammoCount : number = 11;
-        private _score : number = 0;
+        private _scoreLabel : objects.Label;
+        private _ammoLabel : objects.Label;
 
         constructor() {
             super();
@@ -37,14 +37,23 @@ module scenes {
             this._gamebg = new createjs.Bitmap(assets.getResult("Game_BG"));
             this.addChild(this._gamebg);
 
+            //Labels
+
+            this._scoreLabel = new objects.Label("Score: " + score, "60px Arial", "#ffffff", config.Screen.CENTER_X - 250, config.Screen.CENTER_Y + 200);
+            this.addChild(this._scoreLabel);
+
+            this._ammoLabel = new objects.Label("Ammo: " + ammo, "60px Arial", "#ffffff", config.Screen.CENTER_X + 250, config.Screen.CENTER_Y + 200);
+            this.addChild(this._ammoLabel);
+
             //initialize arrays
             this._targets = [];
             this._bottles = [];
             this._ammos = [];
+            stage.on("click", this._click, this);
 
             
        
-        stage.on("click", this._click, this);
+        
             // Add gamescene to main stage container. 
             stage.addChild(this);
         }
@@ -110,30 +119,35 @@ module scenes {
         }
         if (this._ammoTimer >= Math.random() * 400000) {
             this.spawnAmmo();
-        }
-
+        }       
+        
             // Update objects
         }
 
 
       private _click(event : createjs.MouseEvent) : void {
-          this._ammoCount--;
-          console.log("Clicks: " + this._ammoCount);
+          ammo -= 1;
+           this._ammoLabel.text ="Ammo: " + ammo;
+           if (ammo == 0) {
+               stage.removeAllEventListeners();
+             scene = config.Scene.GAMEOVER;
+            changeScene();
+        }
       }
     
       private _onTargetClick(event : createjs.MouseEvent) : void {
-          this._score += 100;
-          console.log("Score: " + this._score);
+          score += 100;
+          this._scoreLabel.text = "Score: " + score;
       }
 
       private _onBottleClick(event : createjs.MouseEvent) : void {
-          this._score += 300;
-          console.log("Score: " + this._score);
+          score += 500;
+          this._scoreLabel.text = "Score: " + score;
       }
 
       private _onAmmoClick(event : createjs.MouseEvent) : void {
-          this._ammoCount += 10;
-          console.log("Clicks: " + this._ammoCount);
+          ammo += 5;
+          this._ammoLabel.text ="Ammo: " + ammo;
       }
     }
 }
