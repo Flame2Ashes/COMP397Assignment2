@@ -19,7 +19,7 @@ module objects {
             this.position = new objects.Vector2(-120, Math.floor((Math.random() * config.Screen.CENTER_Y)) + 60);
             this.regX = this.getBounds().width * 0.5;
             this.regY = this.getBounds().height * 0.5;
-            this._speed = 10;
+            this._speed = 7;
             this.on("click", this._onButtonClick, this);
 
         }
